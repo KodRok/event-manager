@@ -1,3 +1,7 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changesets/0001-starter-baseline.yaml
+    relativeToChangelogFile: true
+  - include:
+      file: db/changelog/changesets/0002-create-location-table.sql
+    relativeToChangelogFile: true
