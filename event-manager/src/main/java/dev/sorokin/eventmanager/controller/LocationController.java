@@ -33,8 +33,8 @@ public class LocationController {
     }
 
     @GetMapping
-    public List<LocationDto> getAll() {
-        return locationService.getAll();
+    public ResponseEntity<List<LocationDto>> getAll() {
+        return ResponseEntity.ok(locationService.getAll());
     }
 
     @GetMapping("/{locationId}")
