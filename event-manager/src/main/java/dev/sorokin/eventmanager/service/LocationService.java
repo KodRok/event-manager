@@ -2,7 +2,6 @@ package dev.sorokin.eventmanager.service;
 
 import dev.sorokin.eventmanager.exception.LocationNotFoundException;
 import dev.sorokin.eventmanager.mapper.LocationMapper;
-import dev.sorokin.eventmanager.model.domain.Location;
 import dev.sorokin.eventmanager.model.dto.LocationDto;
 import dev.sorokin.eventmanager.model.entity.LocationEntity;
 import dev.sorokin.eventmanager.repository.LocationRepository;
@@ -21,19 +20,20 @@ public class LocationService {
     private final LocationMapper mapper;
 
     @Transactional
-    public LocationDto create(LocationDto dto) {
+    public LocationDto createLocation(LocationDto dto) {
         LocationEntity entity = mapper.toEntity(mapper.toDomain(dto));
         LocationEntity savedEntity = repository.save(entity);
         return mapper.toDto(mapper.toDomain(savedEntity));
     }
 
-    public LocationDto getById(Long id) {
+    public LocationDto getByIdLocation(Long id) {
         LocationEntity entity = repository.findById(id)
-                .orElseThrow(() -> new LocationNotFoundException("Location with id " + id + " not found"));
+                .orElseThrow(() -> new LocationNotFoundException(
+                        "Location with id " + id + " not found"));
         return mapper.toDto(mapper.toDomain(entity));
     }
 
-    public List<LocationDto> getAll() {
+    public List<LocationDto> getAllLocation() {
         return repository.findAll().stream()
                 .map(mapper::toDomain)
                 .map(mapper::toDto)
@@ -41,7 +41,7 @@ public class LocationService {
     }
 
     @Transactional
-    public LocationDto update(Long id, LocationDto newLocationDto) {
+    public LocationDto updateLocation(Long id, LocationDto newLocationDto) {
         if (!repository.existsById(id)) {
             throw new LocationNotFoundException("Location with id " + id + " not found");
         }
@@ -54,7 +54,7 @@ public class LocationService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void deleteLocation(Long id) {
         if (!repository.existsById(id)) {
             throw new LocationNotFoundException("Location with id " + id + " not found");
         }
