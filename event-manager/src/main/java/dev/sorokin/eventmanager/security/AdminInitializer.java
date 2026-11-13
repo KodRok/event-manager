@@ -3,12 +3,13 @@ package dev.sorokin.eventmanager.security;
 import dev.sorokin.eventmanager.model.domain.user.Role;
 import dev.sorokin.eventmanager.model.entity.UserEntity;
 import dev.sorokin.eventmanager.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AdminInitializer implements CommandLineRunner {
+public class AdminInitializer {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -18,8 +19,8 @@ public class AdminInitializer implements CommandLineRunner {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    public void run(String... args) {
+    @PostConstruct
+    public void init() {
         String adminLogin = "admin";
         if (!userRepository.existsByLogin(adminLogin)) {
             UserEntity admin = new UserEntity();

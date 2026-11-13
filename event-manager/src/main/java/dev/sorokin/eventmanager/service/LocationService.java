@@ -20,20 +20,20 @@ public class LocationService {
     private final LocationMapper mapper;
 
     @Transactional
-    public LocationDto createLocation(LocationDto dto) {
+    public LocationDto create(LocationDto dto) {
         LocationEntity entity = mapper.toEntity(mapper.toDomain(dto));
         LocationEntity savedEntity = repository.save(entity);
         return mapper.toDto(mapper.toDomain(savedEntity));
     }
 
-    public LocationDto getByIdLocation(Long id) {
+    public LocationDto getById(Long id) {
         LocationEntity entity = repository.findById(id)
                 .orElseThrow(() -> new LocationNotFoundException(
                         "Location with id " + id + " not found"));
         return mapper.toDto(mapper.toDomain(entity));
     }
 
-    public List<LocationDto> getAllLocation() {
+    public List<LocationDto> getAll() {
         return repository.findAll().stream()
                 .map(mapper::toDomain)
                 .map(mapper::toDto)
@@ -41,7 +41,7 @@ public class LocationService {
     }
 
     @Transactional
-    public LocationDto updateLocation(Long id, LocationDto newLocationDto) {
+    public LocationDto update(Long id, LocationDto newLocationDto) {
         if (!repository.existsById(id)) {
             throw new LocationNotFoundException("Location with id " + id + " not found");
         }
@@ -54,7 +54,7 @@ public class LocationService {
     }
 
     @Transactional
-    public void deleteLocation(Long id) {
+    public void delete(Long id) {
         if (!repository.existsById(id)) {
             throw new LocationNotFoundException("Location with id " + id + " not found");
         }

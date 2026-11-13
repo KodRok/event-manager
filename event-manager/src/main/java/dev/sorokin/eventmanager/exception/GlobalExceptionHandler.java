@@ -97,12 +97,12 @@ public class GlobalExceptionHandler {
                 .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
                 .collect(Collectors.joining("; "));
 
-        var body = new ErrorMessageResponse(
-                "Ошибка валидации параметров",
-                detailedMessage,
-                LocalDateTime.now()
+        return ResponseEntity.badRequest().body(new ErrorMessageResponse(
+                        "Ошибка валидации параметров",
+                        detailedMessage,
+                        LocalDateTime.now()
+                )
         );
-        return ResponseEntity.badRequest().body(body);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)

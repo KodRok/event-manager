@@ -142,7 +142,7 @@ paths:
       tags:
         - Locations
   "/locations/{locationId}":
-    deleteLocation:
+    delete:
       description: |-
         Удалить локацию по идентификатору.
         

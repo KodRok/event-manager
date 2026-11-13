@@ -30,9 +30,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> registerUser(@RequestBody @Valid UserRegistrationDto registrationDto) {
+    public ResponseEntity<UserDto> register(@RequestBody @Valid UserRegistrationDto registrationDto) {
         log.info("Запрос на регистрацию пользователя с логином: {}", registrationDto.login());
-        User createdUser = userService.registerUser(registrationDto);
+        User createdUser = userService.register(registrationDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userMapper.toDto(createdUser));
@@ -46,11 +46,11 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDto> getUserById(
+    public ResponseEntity<UserDto> getById(
             @PathVariable @Positive(message = "ID пользователя должен быть положительным числом") Long userId
     ) {
         log.info("Запрос на получение пользователя по id={}", userId);
-        User user = userService.getUserById(userId);
+        User user = userService.getById(userId);
         return ResponseEntity.ok(userMapper.toDto(user));
     }
 }

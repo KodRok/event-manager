@@ -11,7 +11,7 @@ public record UserRegistrationDto(
         String login,
 
         @NotBlank(message = "Пароль не может быть пустым")
-        @Size(min = 8, max = 100, message = "Логин должен содержать от 3 до 50 символов")
+        @Size(min = 8, max = 100, message = "Логин должен содержать от 8 до 100 символов")
         String password,
 
         @NotNull(message = "Возраст обязателен")

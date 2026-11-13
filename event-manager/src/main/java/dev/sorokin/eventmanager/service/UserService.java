@@ -36,7 +36,7 @@ public class UserService {
     }
 
     @Transactional
-    public User registerUser(UserRegistrationDto dto) {
+    public User register(UserRegistrationDto dto) {
         if (userRepository.existsByLogin(dto.login())) {
             throw new UserAlreadyExistsException(
                     "Пользователь с логином '" + dto.login() + "' уже существует");
@@ -66,7 +66,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getUserById(Long userId) {
+    public User getById(Long userId) {
         return userRepository.findById(userId)
                 .map(userMapper::toDomain)
                 .orElseThrow(() -> new UserNotFoundException("Пользователь с id=" + userId + " не найден"));
