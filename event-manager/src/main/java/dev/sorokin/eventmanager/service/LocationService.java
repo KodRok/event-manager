@@ -2,7 +2,6 @@ package dev.sorokin.eventmanager.service;
 
 import dev.sorokin.eventmanager.exception.LocationNotFoundException;
 import dev.sorokin.eventmanager.mapper.LocationMapper;
-import dev.sorokin.eventmanager.model.domain.Location;
 import dev.sorokin.eventmanager.model.dto.LocationDto;
 import dev.sorokin.eventmanager.model.entity.LocationEntity;
 import dev.sorokin.eventmanager.repository.LocationRepository;
@@ -29,7 +28,8 @@ public class LocationService {
 
     public LocationDto getById(Long id) {
         LocationEntity entity = repository.findById(id)
-                .orElseThrow(() -> new LocationNotFoundException("Location with id " + id + " not found"));
+                .orElseThrow(() -> new LocationNotFoundException(
+                        "Location with id " + id + " not found"));
         return mapper.toDto(mapper.toDomain(entity));
     }
 
